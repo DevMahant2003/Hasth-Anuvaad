@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASTH ANUVAAD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+        .word-span { transition: all 0.2s ease-in-out; margin: 0 2px; }
+        .highlighted-word { background-color: #3b82f6; color: #ffffff; padding: 2px 6px; border-radius: 6px; }
+        /* Loader styles */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-black min-h-screen flex flex-col items-center p-4 pt-12">
+    
+    <div class="text-center mb-6 text-white">
+        <h1 class="text-3xl md:text-4xl font-bold">HASTH ANUVAAD</h1>
+        <p class="text-gray-300 mt-2"> SIGN LANGUAGE TRANSCRIPTOR</p>
+    </div>
+
+    <main class="w-full max-w-5xl bg-gray-700 rounded-2xl shadow-xl p-6 md:p-10 md:flex md:flex-row md:gap-6">
+        
+        <div class="md:w-1/2">
+            <div class="mb-6 bg-gray-800 p-4 rounded-lg border border-gray-600">
+                <label class="block text-sm font-medium text-white mb-2">Upload Video for Transcription:</label>
+                <div class="flex gap-2">
+                    <input type="file" id="video-upload" accept="video/*" class="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                    <div id="loading-spinner" class="loader"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">Accepts MP4, AVI, MKV. (Processing may take time)</p>
+            </div>
+
+            <div class="mb-4">
+                <label for="text-input" class="block text-sm font-medium text-gray-300 mb-2">Detected Text:</label>
+                <textarea id="text-input" rows="4" class="w-full p-3 border border-gray-500 bg-gray-600 text-white rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 transition resize-none" placeholder="Text will appear here after upload..."></textarea>
+            </div>
+
+            <div class="mb-6 space-y-4 md:space-y-0 md:flex md:items-center md:justify-between">
+                <button id="convert-btn" class="w-full md:w-auto bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-200">Play Animations</button>
+                
+                <div class="flex items-center space-x-3">
+                    <label for="speed-slider" class="text-sm font-medium text-gray-300">Speed:</label>
+                    <input id="speed-slider" type="range" min="200" max="2000" value="600" step="100" class="w-36 md:w-48 cursor-pointer">
+                    <span id="speed-value" class="text-sm text-gray-400 font-mono w-16 text-right">600 ms</span>
+                </div>
+            </div>
+
+            <div id="text-display-container" class="w-full bg-gray-800 text-gray-200 p-4 rounded-lg mb-6 md:mb-0 min-h-[100px] text-2xl leading-relaxed"></div>
+        </div> 
+        
+        <div id="output-container" class="w-full md:w-1/2 min-h-[250px] bg-black rounded-lg flex items-center justify-center p-4 mt-6 md:mt-0 border border-gray-700">
+            <p id="placeholder-text" class="text-gray-400">Your <B>SIGN ANIMATION</B> will appear here.</p>
+        </div>
+        
+    </main>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
